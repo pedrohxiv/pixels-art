@@ -1,0 +1,28 @@
+.color {
+  border: 1px solid black;
+  display: inline-block;
+}
+
+.first-block {
+  background-color: red;
+  width: 100px;
+  height: 100px;
+}
+
+.second-block {
+  background-color: green;
+  width: 100px;
+  height: 100px;
+}
+
+.third-block {
+  background-color: blue;
+  width: 100px;
+  height: 100px;
+}
+
+.fourth-block {
+  background-color: yellow;
+  width: 100px;
+  height: 100px;
+}
