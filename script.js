@@ -1,58 +1,63 @@
-gettingPixel();
-loadPixels();
-document.querySelector('.second-block').style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette'));
-document.querySelector('.third-block').style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette2'));
-document.querySelector('.fourth-block').style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette3'));
+const firstBlock = document.querySelector('.first-block');
+const secondBlock = document.querySelector('.second-block');
+const thirdBlock = document.querySelector('.third-block');
+const fourthBlock = document.querySelector('.fourth-block');
+
+secondBlock.style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette'));
+thirdBlock.style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette2'));
+fourthBlock.style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette3'));
 
 function randomColor() {
-  localStorage.setItem('colorPalette', JSON.stringify(document.querySelector('.second-block').style.backgroundColor = `rgb(${
-    Math.random() * 255
-  }, ${Math.random() * 255}, ${Math.random() * 255})`));
-  localStorage.setItem('colorPalette2', JSON.stringify(document.querySelector('.third-block').style.backgroundColor = `rgb(${
-    Math.random() * 255
-  }, ${Math.random() * 255}, ${Math.random() * 255})`));
-  localStorage.setItem('colorPalette3', JSON.stringify(document.querySelector('.fourth-block').style.backgroundColor = `rgb(${
-    Math.random() * 255
-  }, ${Math.random() * 255}, ${Math.random() * 255})`));
+  const randomNumber = Math.random() * 255;
+  localStorage.setItem('colorPalette',
+    JSON.stringify((secondBlock.style.backgroundColor = `
+    rgb(${randomNumber},${randomNumber}, ${randomNumber})`)));
+  localStorage.setItem('colorPalette2',
+    JSON.stringify((thirdBlock.style.backgroundColor = `
+    rgb(${randomNumber}, ${randomNumber}, ${randomNumber})`)));
+  localStorage.setItem('colorPalette3',
+    JSON.stringify((fourthBlock.style.backgroundColor = `
+    rgb(${randomNumber}, ${randomNumber}, ${randomNumber})`)));
 }
 
 function selectFirstPaletteColor() {
-    document.querySelector('.first-block').classList.remove('selected');
-    document.querySelector('.second-block').classList.remove('selected');
-    document.querySelector('.third-block').classList.remove('selected');
-    document.querySelector('.fourth-block').classList.remove('selected');
-    document.querySelector('.first-block').classList.add('selected');
+  firstBlock.classList.remove('selected');
+  secondBlock.classList.remove('selected');
+  thirdBlock.classList.remove('selected');
+  fourthBlock.classList.remove('selected');
+  firstBlock.classList.add('selected');
 }
 
 function selectSecondPaletteColor() {
-    document.querySelector('.first-block').classList.remove('selected');
-    document.querySelector('.second-block').classList.remove('selected');
-    document.querySelector('.third-block').classList.remove('selected');
-    document.querySelector('.fourth-block').classList.remove('selected');
-    document.querySelector('.second-block').classList.add('selected');
+  firstBlock.classList.remove('selected');
+  secondBlock.classList.remove('selected');
+  thirdBlock.classList.remove('selected');
+  fourthBlock.classList.remove('selected');
+  secondBlock.classList.add('selected');
 }
 
 function selectThirdPaletteColor() {
-    document.querySelector('.first-block').classList.remove('selected');
-    document.querySelector('.second-block').classList.remove('selected');
-    document.querySelector('.third-block').classList.remove('selected');
-    document.querySelector('.fourth-block').classList.remove('selected');
-    document.querySelector('.third-block').classList.add('selected');
+  firstBlock.classList.remove('selected');
+  secondBlock.classList.remove('selected');
+  thirdBlock.classList.remove('selected');
+  fourthBlock.classList.remove('selected');
+  thirdBlock.classList.add('selected');
 }
 function selectFourthPaletteColor() {
-    document.querySelector('.first-block').classList.remove('selected');
-    document.querySelector('.second-block').classList.remove('selected');
-    document.querySelector('.third-block').classList.remove('selected');
-    document.querySelector('.fourth-block').classList.remove('selected');
-    document.querySelector('.fourth-block').classList.add('selected');
+  firstBlock.classList.remove('selected');
+  secondBlock.classList.remove('selected');
+  thirdBlock.classList.remove('selected');
+  fourthBlock.classList.remove('selected');
+  fourthBlock.classList.add('selected');
 }
 
 function changeColor(event) {
-  let pixel = document.querySelectorAll('.pixel');
-  let pixels = [];
-  let gettingStyleClass = window.getComputedStyle(document.querySelector('.selected'), null);
-  let colorSelected = gettingStyleClass.getPropertyValue('background-color');
-  event.target.style.backgroundColor = colorSelected;
+  const pixel = document.querySelectorAll('.pixel');
+  const pixels = [];
+  const gettingStyleClass = window.getComputedStyle(document.querySelector('.selected'), null);
+  const colorSelected = gettingStyleClass.getPropertyValue('background-color');
+  const eventTarget = event.target;
+  eventTarget.style.backgroundColor = colorSelected;
   for (let i = 0; i < pixel.length; i += 1) {
     pixels.push(pixel[i].style.backgroundColor);
   }
@@ -60,14 +65,14 @@ function changeColor(event) {
 }
 
 function gettingPixel() {
-  let pixel = document.querySelectorAll('.pixel');
+  const pixel = document.querySelectorAll('.pixel');
   for (let i = 0; i < pixel.length; i += 1) {
     pixel[i].addEventListener('click', changeColor);
   }
 }
 
 function clearPixels() {
-  let pixel = document.querySelectorAll('.pixel');
+  const pixel = document.querySelectorAll('.pixel');
   for (let i = 0; i < pixel.length; i += 1) {
     pixel[i].style.backgroundColor = 'white';
   }
@@ -75,20 +80,24 @@ function clearPixels() {
 
 function loadPixels() {
   if (localStorage.getItem('pixelBoard')) {
-    let pixel = document.querySelectorAll('.pixel');
+    const pixel = document.querySelectorAll('.pixel');
     for (let i = 0; i < pixel.length; i += 1) {
       pixel[i].style.backgroundColor = JSON.parse(localStorage.getItem('pixelBoard'))[i];
     }
   }
 }
 
-document.getElementById('button-random-color').addEventListener('click', randomColor);
-document.querySelector('.first-block').addEventListener('click', selectFirstPaletteColor);
-document.querySelector('.second-block').addEventListener('click', selectSecondPaletteColor);
-document.querySelector('.third-block').addEventListener('click', selectThirdPaletteColor);
-document.querySelector('.fourth-block').addEventListener('click', selectFourthPaletteColor);
-document.querySelector('.first-block').addEventListener('click', changeColor);
-document.querySelector('.second-block').addEventListener('click', changeColor);
-document.querySelector('.third-block').addEventListener('click', changeColor);
-document.querySelector('.fourth-block').addEventListener('click', changeColor);
+gettingPixel();
+loadPixels();
+document
+  .getElementById('button-random-color')
+  .addEventListener('click', randomColor);
+firstBlock.addEventListener('click', selectFirstPaletteColor);
+secondBlock.addEventListener('click', selectSecondPaletteColor);
+thirdBlock.addEventListener('click', selectThirdPaletteColor);
+fourthBlock.addEventListener('click', selectFourthPaletteColor);
+firstBlock.addEventListener('click', changeColor);
+secondBlock.addEventListener('click', changeColor);
+thirdBlock.addEventListener('click', changeColor);
+fourthBlock.addEventListener('click', changeColor);
 document.getElementById('clear-board').addEventListener('click', clearPixels);
