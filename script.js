@@ -58,6 +58,12 @@ function gettingPixel() {
   }
 }
 
+function clearPixels() {
+  let pixel = document.querySelectorAll('.pixel');
+  for (let i = 0; i < pixel.length; i += 1) {
+      pixel[i].style.backgroundColor = 'white';
+  }
+}
 document.getElementById('button-random-color').addEventListener('click', randomColor);
 document.querySelector('.first-block').addEventListener('click', selectFirstPaletteColor);
 document.querySelector('.second-block').addEventListener('click', selectSecondPaletteColor);
@@ -67,6 +73,7 @@ document.querySelector('.first-block').addEventListener('click', changeColor);
 document.querySelector('.second-block').addEventListener('click', changeColor);
 document.querySelector('.third-block').addEventListener('click', changeColor);
 document.querySelector('.fourth-block').addEventListener('click', changeColor);
+document.getElementById('clear-board').addEventListener('click', clearPixels);
 window.onload = function(){
   gettingPixel();
 }
