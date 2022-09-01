@@ -45,8 +45,28 @@ function selectFourthPaletteColor() {
     document.querySelector('.fourth-block').classList.add('selected');
 }
 
+function changeColor(event) {
+  let gettingStyleClass = window.getComputedStyle(document.querySelector('.selected'), null);
+  let colorSelected = gettingStyleClass.getPropertyValue('background-color');
+  event.target.style.backgroundColor = colorSelected;
+}
+
+function gettingPixel() {
+  let pixel = document.querySelectorAll('.pixel');
+  for (let i = 0; i < pixel.length; i += 1) {
+      pixel[i].addEventListener('click', changeColor);
+  }
+}
+
 document.getElementById('button-random-color').addEventListener('click', randomColor);
 document.querySelector('.first-block').addEventListener('click', selectFirstPaletteColor);
 document.querySelector('.second-block').addEventListener('click', selectSecondPaletteColor);
 document.querySelector('.third-block').addEventListener('click', selectThirdPaletteColor);
 document.querySelector('.fourth-block').addEventListener('click', selectFourthPaletteColor);
+document.querySelector('.first-block').addEventListener('click', changeColor);
+document.querySelector('.second-block').addEventListener('click', changeColor);
+document.querySelector('.third-block').addEventListener('click', changeColor);
+document.querySelector('.fourth-block').addEventListener('click', changeColor);
+window.onload = function(){
+  gettingPixel();
+}
