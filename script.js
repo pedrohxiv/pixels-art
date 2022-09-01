@@ -1,3 +1,5 @@
+gettingPixel();
+loadPixels();
 document.querySelector('.second-block').style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette'));
 document.querySelector('.third-block').style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette2'));
 document.querySelector('.fourth-block').style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette3'));
@@ -46,24 +48,40 @@ function selectFourthPaletteColor() {
 }
 
 function changeColor(event) {
+  let pixel = document.querySelectorAll('.pixel');
+  let pixels = [];
   let gettingStyleClass = window.getComputedStyle(document.querySelector('.selected'), null);
   let colorSelected = gettingStyleClass.getPropertyValue('background-color');
   event.target.style.backgroundColor = colorSelected;
+  for (let i = 0; i < pixel.length; i += 1) {
+    pixels.push(pixel[i].style.backgroundColor);
+  }
+  localStorage.setItem('pixelBoard', JSON.stringify(pixels));
 }
 
 function gettingPixel() {
   let pixel = document.querySelectorAll('.pixel');
   for (let i = 0; i < pixel.length; i += 1) {
-      pixel[i].addEventListener('click', changeColor);
+    pixel[i].addEventListener('click', changeColor);
   }
 }
 
 function clearPixels() {
   let pixel = document.querySelectorAll('.pixel');
   for (let i = 0; i < pixel.length; i += 1) {
-      pixel[i].style.backgroundColor = 'white';
+    pixel[i].style.backgroundColor = 'white';
   }
 }
+
+function loadPixels() {
+  if (localStorage.getItem('pixelBoard')) {
+    let pixel = document.querySelectorAll('.pixel');
+    for (let i = 0; i < pixel.length; i += 1) {
+      pixel[i].style.backgroundColor = JSON.parse(localStorage.getItem('pixelBoard'))[i];
+    }
+  }
+}
+
 document.getElementById('button-random-color').addEventListener('click', randomColor);
 document.querySelector('.first-block').addEventListener('click', selectFirstPaletteColor);
 document.querySelector('.second-block').addEventListener('click', selectSecondPaletteColor);
@@ -74,6 +92,3 @@ document.querySelector('.second-block').addEventListener('click', changeColor);
 document.querySelector('.third-block').addEventListener('click', changeColor);
 document.querySelector('.fourth-block').addEventListener('click', changeColor);
 document.getElementById('clear-board').addEventListener('click', clearPixels);
-window.onload = function(){
-  gettingPixel();
-}
