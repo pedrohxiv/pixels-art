@@ -93,18 +93,28 @@ function cleanPixels() {
   }
 }
 
+function buildingPixels() {
+  const pixelBoard = document.getElementById('pixel-board');
+  let num = document.getElementById('board-size').value;
+  if (num < 5) {
+    num = 5;
+  }
+  if (num > 50) {
+    num = 50;
+  }
+  for (let i = 0; i < (num * num); i += 1) {
+    pixelBoard.appendChild(document.createElement('div')).classList.toggle('pixel');
+    pixelBoard.style.gridTemplateColumns = `repeat(${num}, 40px)`;
+    pixelBoard.style.gridTemplateRows = `repeat(${num}, 40px)`;
+  }
+}
+
 function verifyInputVallue() {
   if (document.getElementById('board-size').value === '') {
     window.alert('Board inválido!');
   } else {
     cleanPixels();
-    const num = document.getElementById('board-size').value;
-    const pixelBoard = document.getElementById('pixel-board');
-    for (let i = 0; i < (num * num); i += 1) {
-      pixelBoard.appendChild(document.createElement('div')).classList.toggle('pixel');
-      pixelBoard.style.gridTemplateColumns = `repeat(${num}, 40px)`;
-      pixelBoard.style.gridTemplateRows = `repeat(${num}, 40px)`;
-    }
+    buildingPixels();
     gettingPixel();
   }
 }
