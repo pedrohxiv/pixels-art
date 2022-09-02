@@ -107,6 +107,7 @@ function buildingPixels() {
     pixelBoard.style.gridTemplateColumns = `repeat(${num}, 40px)`;
     pixelBoard.style.gridTemplateRows = `repeat(${num}, 40px)`;
   }
+  localStorage.setItem('boardSize', JSON.stringify(num));
 }
 
 function verifyInputVallue() {
@@ -120,7 +121,10 @@ function verifyInputVallue() {
 }
 
 function generatePixelBoard() {
-  const num = 5;
+  let num = 5;
+  if (localStorage.getItem('boardSize')) {
+    num = JSON.parse(localStorage.getItem('boardSize'));
+  }
   const pixelBoard = document.getElementById('pixel-board');
   for (let i = 0; i < (num * num); i += 1) {
     pixelBoard.appendChild(document.createElement('div')).className = 'pixel';

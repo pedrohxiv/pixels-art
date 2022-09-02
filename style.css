@@ -1,6 +1,15 @@
+* {
+  text-align: center;
+}
+
+#title {
+  font-family: sans-serif;
+}
+
 .color {
   border: 1px solid black;
   display: inline-block;
+  margin: 0 20px;
 }
 
 .first-block {
@@ -27,8 +36,18 @@
   height: 100px;
 }
 
+#buttons {
+  margin: 30px 0;
+}
+
+#clear-board {
+  margin: 0 10px;
+}
+
 #pixel-board {
   display: grid;
+  justify-content: center;
+  margin: 30px 0;
 }
 
 .pixel {
