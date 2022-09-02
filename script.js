@@ -8,16 +8,15 @@ thirdBlock.style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette
 fourthBlock.style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette3'));
 
 function randomColor() {
-  const randomNumber = Math.random() * 255;
   localStorage.setItem('colorPalette',
     JSON.stringify((secondBlock.style.backgroundColor = `
-    rgb(${randomNumber},${randomNumber}, ${randomNumber})`)));
+    rgb(${Math.random() * 255},${Math.random() * 255}, ${Math.random() * 255})`)));
   localStorage.setItem('colorPalette2',
     JSON.stringify((thirdBlock.style.backgroundColor = `
-    rgb(${randomNumber}, ${randomNumber}, ${randomNumber})`)));
+    rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`)));
   localStorage.setItem('colorPalette3',
     JSON.stringify((fourthBlock.style.backgroundColor = `
-    rgb(${randomNumber}, ${randomNumber}, ${randomNumber})`)));
+    rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`)));
 }
 
 function selectFirstPaletteColor() {
@@ -87,6 +86,41 @@ function loadPixels() {
   }
 }
 
+function cleanPixels() {
+  const pixel = document.querySelectorAll('.pixel');
+  for (let i = 0; i < pixel.length; i += 1) {
+    pixel[i].remove();
+  }
+}
+
+function verifyInputVallue() {
+  if (document.getElementById('board-size').value === '') {
+    window.alert('Board inválido!');
+  } else {
+    cleanPixels();
+    const num = document.getElementById('board-size').value;
+    const pixelBoard = document.getElementById('pixel-board');
+    for (let i = 0; i < (num * num); i += 1) {
+      pixelBoard.appendChild(document.createElement('div')).classList.toggle('pixel');
+      pixelBoard.style.gridTemplateColumns = `repeat(${num}, 40px)`;
+      pixelBoard.style.gridTemplateRows = `repeat(${num}, 40px)`;
+    }
+    gettingPixel();
+  }
+}
+
+function generatePixelBoard() {
+  const num = 5;
+  const pixelBoard = document.getElementById('pixel-board');
+  for (let i = 0; i < (num * num); i += 1) {
+    pixelBoard.appendChild(document.createElement('div')).className = 'pixel';
+    pixelBoard.style.gridTemplateColumns = `repeat(${num}, 40px)`;
+    pixelBoard.style.gridTemplateRows = `repeat(${num}, 40px)`;
+  }
+}
+
+document.getElementById('generate-board').addEventListener('click', verifyInputVallue);
+generatePixelBoard();
 gettingPixel();
 loadPixels();
 document
